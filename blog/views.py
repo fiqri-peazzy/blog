@@ -1,12 +1,37 @@
+from ast import keyword
 from multiprocessing import context
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from tags.models import Tag
 from .forms import CommentForm, PostForm
+# from django.views.generic import DetailView
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
+from django.db.models import Q
 
 
 # Create your views here.
+def edit_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    data = {
+        'author': post.author,
+        'title': post.title,
+        'content':post.content,
+        'images': post.images,
+        'tag':post.tag
+    }
+    post_form = PostForm(request.POST or None, request.FILES or None, initial=data, instance=post)
+    if request.method == 'POST':
+        if post_form.is_valid():
+            post = post_form.save()
+            post.images = request.FILES.get('images')
+            post.save()
+            return redirect('post_list')
+    ctx = {
+        'post':post,
+        'form':post_form,
+    }
+    return render(request, 'blog/edit_post.html', ctx)
+
 def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -54,6 +79,17 @@ def post_list(request, tag_slug=None):
         'recent':recent_post,
     }
     return render(request, 'blog/post_list.html', context)
+
+def search(request):
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            posts  = Post.objects.order_by('-id').filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
+    ctx = {
+        'posts':posts,
+    }
+
+    return render(request, 'blog/post_list.html', ctx)
 
 def add_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id)

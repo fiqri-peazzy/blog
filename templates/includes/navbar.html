@@ -19,7 +19,7 @@
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="{% url 'new_post' %}">New Post</a></li>
             <li><a class="dropdown-item" href="{% url 'draft' %}">Draft</a></li>
-            <li><a class="dropdown-item" href="#">Github</a></li>
+            <li><a class="dropdown-item" href="https://github.com/fiqri-peazzy">Github</a></li>
           </ul>
         </div>
         <li class="nav-item"><a class="nav-link " href="{% url 'logout' %}">Logout</a>
@@ -60,9 +60,9 @@
       <div class="close-btn position-absolute p-4 top-0 end-0 cursor-pointer z-index-20"><i class="fas fa-times"></i></div>
       <div class="row d-flex justify-content-center w-100">
         <div class="col-md-8">
-          <form action="#">
+          <form action="{% url 'search' %}" method="GET">
             <div class="input-group border-bottom">
-              <input class="form-control form-control-lg border-0 shadow-0 ps-0 bg-none px-0" type="search" placeholder="What are you looking for?">
+              <input class="form-control form-control-lg border-0 shadow-0 ps-0 bg-none px-0" name="keyword" type="search" placeholder="What are you looking for?">
               <button class="btn btn-link btn-sm shadow-0 px-0 btn-lg text-dark" type="submit"><i class="fas fa-search"></i></button>
             </div>
           </form>

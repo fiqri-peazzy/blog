@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row gy-5">
+        <h1>Edit Post</h1>
+        <form action="{% url 'edit_post' post.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="save btn btn-warning" name="button">save</button>
+        </form>
+    </div>
+  </div>
+
+
+
+
+{% endblock content %}
