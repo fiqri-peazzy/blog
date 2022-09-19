@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   
+      <section class="pt-0">
+        <div class="container">
+            <h1>Draft </h1>
+        
+        {% if not posts %}
+        <br>
+        There is No Post draft
+        <br> 
+        <hr>
+        <a href="{% url 'new_post' %}" class="btn btn-primary text-light" > Add One </a>
+        
+        {% else %}
+        {% for post in posts %}
+        <div class="row d-flex align-items-stretch g-0 ">
+          <div class="col-lg-7 shadow">
+            <div class="text-inner d-flex align-items-center h-100 bg-light">
+              <div class="content px-4 px-lg-5">
+                <ul class="list-inline mb-1">
+                  <li class="list-inline-item">{{post.tag}}</a></li>
+                </ul>
+                <h2 class="h4 mb-3"><a class="text-dark" href="{% url 'draft_detail' post.pk %}">{{post.title}}</a></h2>
+                <p class="mb-4">{{ post.content | slice:300 }}.</p>
+                <a href="{% url 'post_publish' post.id %}" class="btn btn-primary">Publish</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 mt-4 mb-4 shadow"><img class="img-fluid img-thumbnails" src="{{ post.images.url }}" alt="..."></div>
+          
+          {% endfor %}
+
+        {% endif %}
+            
+          <!-- Post-->
+          
+         
+        </div>
+      </section>
+      
+{% endblock content %}

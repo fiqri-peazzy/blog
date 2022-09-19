@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row gy-5">
+        <h1>new post</h1>
+        <form action="{% url 'new_post' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="save btn btn-warning" name="button">save</button>
+        </form>
+    </div>
+  </div>
+
+
+
+
+{% endblock content %}
+
+    

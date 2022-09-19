@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+    <!-- Hero Section-->
+    <section class="hero position-relative" style="background: url(static/img/33215.jpg); background-size: cover; background-position: center center">
+        <div class="container text-white py-5">
+          <div class="row py-lg-5">
+            <div class="col-lg-7">
+              <h1 class="text-light">MySimple Blog</h1>
+            </div>
+          </div><a class="continue text-gray-400 position-absolute bottom-0 mb-5 z-index-20 link-transition small text-uppercase" href="#intro"><i class="fas fa-long-arrow-alt-down"></i> Scroll Down</a>
+        </div>
+      </section>
+      <!-- Intro Section-->
+      <section id="intro">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <h2 class="h3">Just Quote</h2>
+              <p class="text-lg fw-light lh-lg mb-0">If you want to Wow your customers, first you must Wow your software developers who will Wow the customer.
+                — Tom Peters</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="pt-0">
+        <div class="container">
+          <!-- Post-->
+          {% for post in posts %}
+          <div class="row d-flex align-items-stretch g-0 ">
+            <div class="col-lg-7 shadow">
+              <div class="text-inner d-flex align-items-center h-100 bg-light">
+                <div class="content px-4 px-lg-5">
+                  <ul class="list-inline mb-1">
+                    <li class="list-inline-item"><a class="text-uppercase text-dark small fw-bold" href="{{ post.tag.get_url }}">{{post.tag}}</a></li>
+                  </ul>
+                  <h2 class="h4 mb-3"><a class="text-dark" href="{% url 'single_post' post.id %}">{{post.title}}</a></h2>
+                  <p class="text-sm">{{post.content | slice:250}}..</p>
+                  <ul class="list-inline list-separated text-gray-500 mb-0">
+                    <li class="list-inline-item"><a class="d-flex align-items-center flex-wrap text-reset" href="!#">
+                        <div class="avatar flex-shrink-0"><img class="img-fluid" src="{% static 'img/avatar-1.jpg' %}" alt="..."/></div><small>{{ post.author }}</small></a></li>
+                    <li class="list-inline-item small"><i class="far fa-clock"></i>{{ post.publish_date }}</li>
+                    <li class="list-inline-item small"><i class="far fa-comment"></i> {{ post.comments.count }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5 mt-4 mb-4 shadow"><img class="img-fluid img-thumbnails" src="{{ post.images.url }}" alt="..."></div>
+            {% endfor %}
+        </div>
+          
+          
+      </section>
+      <!-- Divider Section-->
+      <section class="divider" style="background: url(static/img/asta.jpg); background-size: cover; background-position: center bottom">
+        <div class="container text-white">
+          <div class="row">
+            <div class="col-md-7">
+              <h2>Check my Github For the source code or another project Django.</h2><a class="link-underline mt-3" href="#"><img src="{% static 'img/gthub.png' %}" alt=""> GitHub</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Latest Posts -->
+      <section>
+        <div class="container">
+          <header class="mb-5"> 
+            <h2>Latest from the blog</h2>
+            <p class="text-lg fw-light">Filter by post publish date</p>
+          </header>
+          <div class="row gy-4">
+            {% for post in recent %}  
+            <div class="col-md-4"><a class="mb-3" href="{% url 'single_post' post.id %}"><img class="img-fluid" src="{{post.images.url}}" alt="..."/></a>
+              <div class="d-flex align-items-center justify-content-between mb-2"><small class="text-gray-500">{{ post.publish_date }}</small><a class="small fw-bold text-uppercase small" href="{{post.tag.get_url}}">{{ post.tag }}</a></div>
+              <h3 class="h4"><a class="text-dark" href="{% url 'single_post' post.id %}">{{ post.title | slice:40 }}</a></h3>
+              <p class="text-muted text-sm">{{ post.content | slice:120 }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      <!-- Newsletter Section-->
+      <section class="pt-0">    
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h2>Subscribe to Newsletter</h2>
+              <p class="text-lg lh-lg fw-light mb-4">Subscribe If you want to updated post every day <br>I will send notification in your email</p>
+            </div>
+            <div class="col-md-8">
+              <form action="#">
+                <div class="input-group">
+                  <input class="form-control p-3" type="email" name="email" id="email" placeholder="Type your email address">
+                  <button class="btn btn-dark" type="submit">Subscribe</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Gallery Section-->
+      <section class="p-0">
+        <div class="row g-0">
+          <div class="col-lg-3 col-sm-6"><a class="glightbox d-block position-relative" href="img/gallery-1.jpg" data-gallery="gallery" data-glightbox="Gallery image 1"><img class="img-fluid" src="{% static 'img/gallery-1.jpg' %}" alt="image">
+              <div class="fsc-hover-overlay"><i class="fas fa-search fsc-hover-overlay-icon"></i></div></a></div>
+          <div class="col-lg-3 col-sm-6"><a class="glightbox d-block position-relative" href="img/gallery-2.jpg" data-gallery="gallery" data-glightbox="Gallery image 2"><img class="img-fluid" src="{% static 'img/gallery-2.jpg' %}" alt="image">
+              <div class="fsc-hover-overlay"><i class="fas fa-search fsc-hover-overlay-icon"></i></div></a></div>
+          <div class="col-lg-3 col-sm-6"><a class="glightbox d-block position-relative" href="img/gallery-3.jpg" data-gallery="gallery" data-glightbox="Gallery image 3"><img class="img-fluid" src="{% static 'img/gallery-3.jpg' %}" alt="image">
+              <div class="fsc-hover-overlay"><i class="fas fa-search fsc-hover-overlay-icon"></i></div></a></div>
+          <div class="col-lg-3 col-sm-6"><a class="glightbox d-block position-relative" href="img/gallery-4.jpg" data-gallery="gallery" data-glightbox="Gallery image 4"><img class="img-fluid" src="{% static 'img/gallery-4.jpg' %}" alt="image">
+              <div class="fsc-hover-overlay"><i class="fas fa-search fsc-hover-overlay-icon"></i></div></a></div>
+        </div>
+      </section>
+      
+        
+    {% endblock content %}
+        
+    

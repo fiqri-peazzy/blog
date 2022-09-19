@@ -1,0 +1,60 @@
+{% load static %}
+<!-- Page Footer-->
+<footer class="footer text-white" style="background: #0e0e0e">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h6 class="text-white">My Blog</h6>
+          <p class="fw-light mb-1"><span><i class="fa fa-address-card"></i></span> Ling.Gulegiant, kel.leok 1, kec.Biau, Kab.Buol, Sulawesi tengah, Indonesia</p>
+          <p class="fw-light mb-1"><span><i class="fa fa-phone"></i></span> Phone: 0821 9208 1004</p>
+          <p class="fw-light mb-4"><span><i class="fa fa-envelope"></i></span> Email: <a class="text-decoration-underline text-reset" href="mailto:info@company.com">fiqriawan36@gmail.com</a></p>
+          <ul class="list-unstyled">
+            <li class="list-inline-item"><a class="text-reset me-2" href="!#"><i class="fab fa-facebook-f"></i></a></li>
+            <li class="list-inline-item"><a class="text-reset me-2" href="!#"><i class="fab fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a class="text-reset me-2" href="!#"><i class="fab fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a class="text-reset me-2" href="!#"><i class="fab fa-behance"></i></a></li>
+            <li class="list-inline-item"><a class="text-reset me-2" href="!#"><i class="fab fa-pinterest"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+            <h6>Tag</h6>
+          <div class="d-flex">
+            <ul class="list-unstyled text-sm me-4">
+              {% for tag in links %}
+              <li class="mb-2"><a class="text-reset fw-light" href="{{tag.get_url}}">{{ tag.tag_name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          
+          {% for post in recent %}
+          <a class="d-block mb-2" href="{% url 'single_post' post.id %}">
+            <div class="d-flex align-items-center"><img class="img-fluid p-1 border border-gray-600 flex-shrink-0" src="{{post.images.url}}" alt="..." width="50">
+              <div class="ms-2 text-muted">
+                <p class="fw-bold mb-0">{{post.title | slice:45}}</p><span>{{ post.publish_date }}</span>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="copyrights text-white py-4" style="background: #090909">
+    <div class="container">
+      <div class="row text-center gy-2">
+        <div class="col-md-6 text-md-start">
+          <p class="mb-0 fw-light text-sm">&copy; 2022. All rights reserved. Your great site.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JavaScript files-->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/glightbox.js' %}"></script>
+  <script src="{% static 'js/theme.js' %}"></script>
+  <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</body>
+</html>
